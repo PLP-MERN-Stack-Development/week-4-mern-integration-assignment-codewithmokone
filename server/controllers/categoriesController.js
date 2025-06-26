@@ -18,10 +18,10 @@ exports.createCategory = async (req, res) => {
 // Update a category
 exports.updateCategory = async (req, res) => {
   try {
-    const { name, description } = req.body;
+    const { title, description } = req.body;
     const category = await Category.findByIdAndUpdate(
       req.params.id,
-      { name, description },
+      { title, description },
       { new: true, runValidators: true }
     );
 

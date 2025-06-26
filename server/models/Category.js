@@ -13,4 +13,4 @@ const CategorySchema = new mongoose.Schema({
     }
 }, { timestamps: true});
 
-MediaSourceHandle.exports = mongoose.model('Category', CategorySchema);
+module.exports = mongoose.model('Category', CategorySchema);
