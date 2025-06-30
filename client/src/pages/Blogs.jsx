@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../Context/DataContext";
+import { Link } from 'react-router-dom'
 
 const categories = [
     'HTML',
@@ -9,7 +10,6 @@ const categories = [
 ]
 
 const Blogs = () => {
-    // const [categories, setCategories] = useState(categories);
     const {data, loading, error} = useContext(DataContext);
 
     console.log(data);
@@ -26,11 +26,13 @@ const Blogs = () => {
                 ) : (
                     <>
                         {data.map((blog, index) => (
-                            <div key={index} className="w-64 h-40 bg-white rounded ">
-                                <img src="#" alt="#" />
-                                <h4>{blog.title}</h4>
-                                <p>{blog.content}</p>
-                            </div>
+                            <Link key={index} to={`viewpost/${blog._id}`}>
+                                 <div className="w-64 h-40 bg-white rounded ">
+                                    <img src="#" alt="#" />
+                                    <h4>{blog.title}</h4>
+                                    <p>{blog.content}</p>
+                                </div>
+                            </Link>
                         ))}
                     </>
                 )}

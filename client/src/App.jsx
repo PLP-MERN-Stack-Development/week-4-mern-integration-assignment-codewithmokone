@@ -16,7 +16,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path="blogs" element={<Blogs />} />
-            <Route path='viewpost' element={<ViewPost />} />
+            <Route path='blogs/viewpost/:id' element={<ViewPost />} />
             <Route path='createpost' element={<CreatePost />} />
           </Routes>
           <Footer />
