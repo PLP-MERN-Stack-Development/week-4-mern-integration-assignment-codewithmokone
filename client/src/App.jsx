@@ -4,6 +4,8 @@ import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import Blogs from './pages/Blogs'
 import Footer from './components/Footer'
+import CreatePost from './pages/CreatePost'
+import ViewPost from './pages/ViewPost'
 
 function App() {
 
@@ -14,6 +16,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path="blogs" element={<Blogs />} />
+            <Route path='viewpost' element={<ViewPost />} />
+            <Route path='createpost' element={<CreatePost />} />
           </Routes>
           <Footer />
       </BrowserRouter>
