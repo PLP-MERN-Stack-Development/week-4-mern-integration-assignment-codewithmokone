@@ -4,9 +4,7 @@ import AuthContext from "../context/AuthContext";
 
 const Navbar = () => {
     const { role, token, logout } = useContext(AuthContext);
-    console.log(role);
     
-
     return (
         <header className="w-full h-14 flex items-center justify-center bg-white border-b-1"> 
             <div className="w-8/12 sm:w-11/12 flex justify-between">

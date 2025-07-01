@@ -11,8 +11,6 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         if (token) {
-            console.log(token);
-            
         axios.defaults.headers['Authorization'] = `Bearer ${token}`;
         axios.get('http://localhost:4000/api/auth/profile')
             .then(response => setUser(response.data.user))
@@ -21,8 +19,6 @@ export const AuthProvider = ({ children }) => {
     }, [token]);
 
     const login = (data) => {
-        console.log(data);
-        
         localStorage.setItem('token', data.token);
         setToken(data.token);
         setUser(data.user);
@@ -35,8 +31,6 @@ export const AuthProvider = ({ children }) => {
         setToken(null);
         setUser(null);
     };
-
-    console.log(user);
     
     return (
         <AuthContext.Provider value={{ user, token, role, error, login, logout }}>
