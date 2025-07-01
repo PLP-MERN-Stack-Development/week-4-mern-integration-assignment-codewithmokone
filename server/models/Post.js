@@ -32,11 +32,11 @@ const PostSchema = new mongoose.Schema(
     //   ref: 'User',
     //   required: true,
     // },
-    // category: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'Category',
-    //   required: true,
-    // },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'categories',
+      required: true,
+    },
     tags: [String],
     isPublished: {
       type: Boolean,

@@ -11,9 +11,9 @@ const Home = () => {
                 <div className="flex justify-center">
                     <Search />
                 </div>
-                <div className="flex flex-col gap-4 mt-8">
+                <div className="flex sm:flex-col gap-4 mt-8">
                     <h1 className="font-medium">Featured:</h1>
-                    <div className="flex gap-4 sm:flex-col">
+                    <div className="flex  gap-4 sm:flex-col md:flex-row">
                         <div className="w-full h-80 flex flex-col justify-center items-center  bg-white rounded ">
                             <img className="h-4/5" src="#" alt="#" />
                             <h4>Testing</h4>

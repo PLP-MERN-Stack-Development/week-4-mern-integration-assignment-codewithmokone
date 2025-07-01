@@ -10,6 +10,7 @@ const Navbar = () => {
                     <NavLink className="font-medium" to={'blogs'}>Blogs</NavLink>
                     <NavLink className="font-medium">About</NavLink>
                     <NavLink className="font-medium">Contact Us</NavLink>
+                    <NavLink className="font-medium" to={'createpost'}>Create Post</NavLink>
                 </nav>
             </div>
         </header>

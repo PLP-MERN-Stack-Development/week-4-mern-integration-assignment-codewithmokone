@@ -12,7 +12,7 @@ const ViewPost = () => {
     return (
         <>
             {loading ? (
-                <></>
+                <div>Loading.....</div>
             ) : (
                     <div className="w-full h-full flex justify-center bg-gray-300">
                         <div className="w-8/12 h-full sm:w-11/12 mt-10">

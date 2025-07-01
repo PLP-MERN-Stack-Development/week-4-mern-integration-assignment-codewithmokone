@@ -24,7 +24,8 @@ exports.getPostById = async (req, res) => {
 // Create a new post
 exports.createPost = async (req,res) => {
     const { title, content, slug, category, tags, author } = req.body;
-
+  console.log(title, content, slug, category, tags, author);
+  
     try {
         const newPost = new Post({
             title,
