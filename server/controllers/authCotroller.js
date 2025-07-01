@@ -2,8 +2,10 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const dotenv = require('dotenv');
+dotenv.config();
 
-
+// Register a new user
 exports.registerUser = async (req, res) => {
     try {
         const { username, email, password } = req.body;
@@ -31,6 +33,7 @@ exports.registerUser = async (req, res) => {
     }
 }
 
+// Login a user
 exports.loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -50,9 +53,9 @@ exports.loginUser = async (req, res) => {
         // Generate JWT token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        res.json({ message: "Login successful", token });
+        res.json({ message: "Login successful", token, user });
     } catch (error) {
-        res.status(500).json({ message: "Server error", error: err });
+        res.status(500).json({ message: "Server error", error: error });
     }
 }
 

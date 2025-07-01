@@ -24,6 +24,8 @@ function App() {
             <Route path='createpost' element={<CreatePost />} />
             <Route path='register' element={<Register />} />
             <Route path='login' element={<Login />} />
+
+            {/* Protected routes */}
           </Routes>
           <Footer />
         </BrowserRouter>
