@@ -11,6 +11,7 @@ const Navbar = () => {
                     <NavLink className="font-medium">About</NavLink>
                     <NavLink className="font-medium">Contact Us</NavLink>
                     <NavLink className="font-medium" to={'createpost'}>Create Post</NavLink>
+                    <NavLink className="font-medium" to={'login'}>Sign in</NavLink>
                 </nav>
             </div>
         </header>

@@ -6,21 +6,28 @@ import Blogs from './pages/Blogs'
 import Footer from './components/Footer'
 import CreatePost from './pages/CreatePost'
 import ViewPost from './pages/ViewPost'
+import { AuthProvider } from './Context/AuthContext'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 function App() {
 
   return (
     <div className='bg-gray-300'>
-       <BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
           <Navbar />
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path="blogs" element={<Blogs />} />
             <Route path='blogs/viewpost/:id' element={<ViewPost />} />
             <Route path='createpost' element={<CreatePost />} />
+            <Route path='register' element={<Register />} />
+            <Route path='login' element={<Login />} />
           </Routes>
           <Footer />
-      </BrowserRouter>
+        </BrowserRouter>
+      </AuthProvider>
     </div>
    
   )
