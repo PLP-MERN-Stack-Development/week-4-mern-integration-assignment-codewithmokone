@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import PrivateRoute from './components/ProtectedRoute'
 import CreateCategory from './pages/CreateCategory'
+import Dashboard from './pages/Dashboard'
 
 function App() {
 
@@ -25,12 +26,13 @@ function App() {
             <Route path='blogs/viewpost/:id' element={<ViewPost />} />
             <Route path='register' element={<Register />} />
             <Route path='login' element={<Login />} />
+            
 
             {/* Protected routes */}
             <Route element={<PrivateRoute />}>
-              <Route path='createpost' element={<CreatePost />} />
+              {/* <Route path='createpost' element={<CreatePost />} />
               <Route path='createcategory' element={<CreateCategory />} />
-              {/* <Route path='updatepost' element={<UpdatePost />} /> */}
+              <Route path='updatepost' element={<UpdatePost />} /> */}
             </Route>
           </Routes>
           <Footer />

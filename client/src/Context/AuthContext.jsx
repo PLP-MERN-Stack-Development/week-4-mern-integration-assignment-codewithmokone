@@ -1,5 +1,6 @@
 import { children, createContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
             .then(response => setUser(response.data.user))
             .catch(err => console.log(err));
         }
-    }, [token]);
+    }, [token, role]);
 
     const login = (data) => {
         localStorage.setItem('token', data.token);
@@ -29,8 +30,10 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         setToken(null);
         setUser(null);
+        setRole(null);
     };
     
     return (

@@ -125,7 +125,7 @@ const CreatePost = () => {
                             type="text"
                             className="w-96 h-50 p-1 bg-white"
                             name="content"
-                            maxLength={200}
+                            maxLength={2000}
                             value={formData.content}
                             onChange={handleChange}
                             required
@@ -142,7 +142,7 @@ const CreatePost = () => {
                         {/* Category selector input */}
                         <label className="my-2">Category</label>
                         <select className="w-96 p-1 bg-white" id="category" value={formData.category} onChange={handleChange} name="category" required>
-                            <option value={formData.category}>HTML</option>
+                            <option value="HTML">HTML</option>
                             <option value="CSS">CSS</option>
                             <option value="Javascript">Javascript</option>
                         </select>
