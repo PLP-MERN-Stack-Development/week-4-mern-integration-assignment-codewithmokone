@@ -1,35 +1,57 @@
-import { useState } from 'react'
 import Dashboard from './pages/Dashboard'
-import Sidebar from './compnents/Sidebar'
-import Header from './compnents/Header'
 import {BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
+import CreatePost from './pages/CreatePost'
+import CreateCategory from './pages/CreateCategory'
+import ViewPost from './pages/ViewPost'
+import Layout from './compnents/Layout'
+import Posts from './pages/Posts'
 
 
 function App() {
 
   return (
+    // <BrowserRouter>
+    //       <Routes>
+    //         {/* Public Routes */}
+    //         <Route path='/' element={<Login />} />
+
+    //       </Routes>
+    //       <div className='flex'>
+    //         <Sidebar />
+    //         <div className='w-full'>
+    //           <Header />
+    //           <div>
+    //             <Routes>
+    //               <Route path='dashboard' element={<Dashboard />} />
+    //               {/* <Route path="blogs" element={<Posts />} /> */}
+    //               <Route path='viewpost/:id' element={<ViewPost />} />
+    //               <Route path='createpost' element={<CreatePost />} />
+    //               <Route path='createpost' element={<CreateCategory />} />
+    //               <Route path='login' element={<Login />} />
+    //             </Routes>
+    //           </div>
+    //         </div>
+            
+    //       </div>
+          
+    // </BrowserRouter>
+
     <BrowserRouter>
           <Routes>
+            {/* Public Routes */}
             <Route path='/' element={<Login />} />
-          </Routes>
-          <div className='flex'>
-            <Sidebar />
-            <div className='w-full'>
-              <Header />
-              <div>
-                <Routes>
-                  <Route path='dashboard' element={<Dashboard />} />
-                  {/* <Route path="blogs" element={<Blogs />} />
-                  <Route path='blogs/viewpost/:id' element={<ViewPost />} />
-                  <Route path='register' element={<Register />} />
-                  <Route path='login' element={<Login />} /> */}
-                </Routes>
-              </div>
-            </div>
-            
-          </div>
-          
+
+            {/* Protected routes inside Layout */}
+              <Route path='/' element={<Layout />}>
+                <Route path='dashboard' element={<Dashboard />} />
+                  <Route path="posts" element={<Posts />} />
+                  <Route path='viewpost/:id' element={<ViewPost />} />
+                  <Route path='createpost' element={<CreatePost />} />
+                  <Route path='createcategory' element={<CreateCategory />} />
+                  <Route path='login' element={<Login />} />
+                </Route>
+           </Routes>
     </BrowserRouter>
   )
 }
