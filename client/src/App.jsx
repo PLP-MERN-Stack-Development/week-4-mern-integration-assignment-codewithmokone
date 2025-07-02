@@ -4,14 +4,11 @@ import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import Blogs from './pages/Blogs'
 import Footer from './components/Footer'
-import CreatePost from './pages/CreatePost'
 import ViewPost from './pages/ViewPost'
 import { AuthProvider } from './Context/AuthContext'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import PrivateRoute from './components/ProtectedRoute'
-import CreateCategory from './pages/CreateCategory'
-import Dashboard from './pages/Dashboard'
 
 function App() {
 
@@ -27,7 +24,6 @@ function App() {
             <Route path='register' element={<Register />} />
             <Route path='login' element={<Login />} />
             
-
             {/* Protected routes */}
             <Route element={<PrivateRoute />}>
               {/* <Route path='createpost' element={<CreatePost />} />
