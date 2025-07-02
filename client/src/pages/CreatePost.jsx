@@ -1,14 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from 'axios';
+import AuthContext from "../context/AuthContext";
 
-
-const currentUserId = 1;
-const API = import.meta.env.VITE_POST_API
-const CategoryAPI = import.meta.env.VITE_CAT_API
-console.log(API);
-
+const postAPI = import.meta.env.VITE_POST_API;
+const categoryAPI = import.meta.env.VITE_CAT_API;
 
 const CreatePost = () => {
+    const { userId } = useContext(AuthContext);
+    
     const [formData, setFormData] = useState({
         title: '',
         content: '',
@@ -19,7 +18,6 @@ const CreatePost = () => {
         tags: '',
         isPublished: false
     });
-
     const [error,setError] = useState(null);
     const [success, setSuccess] = useState(false);
 
@@ -33,9 +31,10 @@ const CreatePost = () => {
     }
 
     // Fetching category id
-    const fetchCategoryId = async (category) => {      
+    const fetchCategoryId = async (category) => {  
+            
         try {
-            const res = await axios.get(`${CategoryAPI}${category}`);
+            const res = await axios.get(`${categoryAPI}${category}`);
             if (res.status === 200) {
                 return res.data;
             } else {
@@ -48,6 +47,7 @@ const CreatePost = () => {
         }
     };
 
+    // Handles creating a new bllog post
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError(null);
@@ -56,19 +56,19 @@ const CreatePost = () => {
         try {
             // Fetch category ID
             const categoryId = await fetchCategoryId(formData.category);
-
+            
             if (!categoryId) return;
 
             const payload = {
                 ...formData,
                 tags: formData.tags.split(',').map(tag => tag.trim()),
                 category: categoryId,
-                author: currentUserId,
+                author: { _id: userId},
             };
 
-            console.log('Payload: ', payload);
+            console.log('Payload', payload);
 
-            const res = await axios.post(API, payload);
+            const res = await axios.post(postAPI, payload);
             if (res.status === 201) {
                 setSuccess(true);
                 setFormData({
@@ -92,73 +92,61 @@ const CreatePost = () => {
         <div className="w-full h-full flex justify-center bg-gray-300">
             <div className="w-8/12 h-full sm:w-11/12 mt-10 ">
                 <div className="w-full flex flex-col items-center justify-center">
-                    <h2>Create A Post</h2>
-                    
-                    {error && <p style={{color: 'red'}}>{error}</p>}
-                    {success && <p style={{color: 'green'}}>{success}</p>}
+                    {/* Main heading */}
+                    <h2 className="font-medium">Create A Post</h2>
 
-                    <form className="flex flex-col" onSubmit={handleSubmit}>
+                    {/* Create post form */}
+                    <form className="flex flex-col mt-4" onSubmit={handleSubmit}>
+                        {/* Title input */}
                         <label className="my-2" htmlFor="title">Title</label>
                         <input 
                             type="text"
-                            className="w-80 bg-white"
+                            className="w-96 p-1 bg-white"
                             name="title"
                             maxLength={100}
                             value={formData.title}
                             onChange={handleChange}
                             required
                         />
-
+                        {/* Slug input */}
                         <label className="my-2" htmlFor="slug">Slug</label>
                         <input 
                             type="text"
-                            className="w-80 bg-white"
+                            className="w-96 p-1 bg-white"
                             name="slug"
                             maxLength={100}
                             value={formData.slug}
                             onChange={handleChange}
                             required
                         />
-
+                        {/* Content input */}
                         <label className="my-2" htmlFor="content">Content</label>
                         <textarea 
                             type="text"
-                            className="w-80 bg-white"
+                            className="w-96 h-50 p-1 bg-white"
                             name="content"
                             maxLength={200}
                             value={formData.content}
                             onChange={handleChange}
                             required
                         ></textarea>
-
+                        {/* Excerpt input */}
                         <label className="my-2">Excerpt (max 200 chars)</label>
                         <textarea
-                        className="w-80 bg-white"
+                        className="w-96 p-1 bg-white"
                         name="excerpt"
                         maxLength={200}
                         value={formData.excerpt}
                         onChange={handleChange}
                         ></textarea>
-
-                        <label className="my-2">Featured Image URL</label>
-                        <input
-                        className="w-80 bg-white"
-                        type="text"
-                        name="featuredImage"
-                        value={formData.featuredImage}
-                        onChange={handleChange}
-                        />
-
-                        <label className="my-2">Category ID *</label>
-                        <input
-                        className="w-80 bg-white"
-                        type="text"
-                        name="category"
-                        value={formData.category}
-                        onChange={handleChange}
-                        required
-                        />
-
+                        {/* Category selector input */}
+                        <label className="my-2">Category</label>
+                        <select className="w-96 p-1 bg-white" id="category" value={formData.category} onChange={handleChange} name="category" required>
+                            <option value={formData.category}>HTML</option>
+                            <option value="CSS">CSS</option>
+                            <option value="Javascript">Javascript</option>
+                        </select>
+                        {/* Tags input */}
                         <label className="my-2">Tags (comma separated)</label>
                         <input
                         className="w-80 bg-white"
@@ -167,8 +155,17 @@ const CreatePost = () => {
                         value={formData.tags}
                         onChange={handleChange}
                         />
-
-                        <label>
+                        {/* Image input */}
+                        <label className="my-2">Featured Image URL</label>
+                        <input
+                            className="w-96 bg-white"
+                            type="file"
+                            name="featuredImage"
+                            value={formData.featuredImage}
+                            onChange={handleChange}
+                        />
+                        {/* Publish input */}
+                        <label className="mt-4"> 
                         <input
                             className="bg-white"
                             type="checkbox"
@@ -176,10 +173,12 @@ const CreatePost = () => {
                             checked={formData.isPublished}
                             onChange={handleChange}
                         />
-                        Publish Now
+                         Publish Now
                         </label>
-
-                        <button className="p-4 bg-amber-400" type="submit">Create Post</button>
+                        {/* Submit button */}
+                        <button className="p-4 bg-blue-500 rounded py-2 mt-4 text-white" type="submit">Create Post</button>
+                        {success ? <p className="text-green-600 text-center mt-4">Post created successfully.</p> : ''}
+                        {error && <p className="text-red-500 text-center mt-4">{error}</p>}
                     </form>
                 </div>
             </div>

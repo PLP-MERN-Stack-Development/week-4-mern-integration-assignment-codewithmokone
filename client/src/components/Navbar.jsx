@@ -14,7 +14,12 @@ const Navbar = () => {
                     <NavLink className="font-medium" to={'blogs'}>Blogs</NavLink>
                     <NavLink className="font-medium">About</NavLink>
                     <NavLink className="font-medium">Contact Us</NavLink>
-                    {role ? (<NavLink className="font-medium" to={'createpost'}>Create Post</NavLink>) : (<></>)}
+                    {role === 'admin' ? (
+                        <>
+                            <NavLink className="font-medium" to={'createpost'}>Create Post</NavLink>
+                            <NavLink className="font-medium" to={'createcategory'}>Create Category</NavLink>
+                        </>
+                        ) : (<></>)}
                     {token ? ( <button onClick={logout}>Sign Out</button> ) : ( <NavLink className="font-medium" to={'login'}>Sign in</NavLink> )}
                 </nav>
             </div>

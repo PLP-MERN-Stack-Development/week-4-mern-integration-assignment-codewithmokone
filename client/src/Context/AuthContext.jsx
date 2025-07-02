@@ -5,13 +5,13 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [userId, setUserId] = useState('')
     const [token, setToken] = useState(localStorage.getItem('token'));
-    const [role, setRole] = useState(null);
-    const [error,setError] = useState('')
+    const [role, setRole] = useState(localStorage.getItem('role'));
 
     useEffect(() => {
-        if (token) {
-        axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+        if (token, role) {
+        axios.defaults.headers['Authorization'] = `Bearer ${token}, ${role}`;
         axios.get('http://localhost:4000/api/auth/profile')
             .then(response => setUser(response.data.user))
             .catch(err => console.log(err));
@@ -20,10 +20,11 @@ export const AuthProvider = ({ children }) => {
 
     const login = (data) => {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.user.role);
         setToken(data.token);
         setUser(data.user);
+        setUserId(data.user._id)
         setRole(data.user.role);
-        setError(data.message)
     };
 
     const logout = () => {
@@ -33,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     };
     
     return (
-        <AuthContext.Provider value={{ user, token, role, error, login, logout }}>
+        <AuthContext.Provider value={{ user, userId, token, role, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
