@@ -8,6 +8,7 @@ const Sidebar = () => {
                 <NavLink className={({ isActive }) => isActive ? "flex items-center bg-gray-500 font-bold pl-2 rounded-l-3xl h-16" : ""} to="dashboard">Dashboard</NavLink>
                 <NavLink className={({ isActive }) => isActive ? "flex items-center bg-gray-500 font-bold pl-2 rounded-l-3xl h-16" : ""} to="posts">Posts</NavLink>
                 <NavLink className={({ isActive }) => isActive ? "flex items-center bg-gray-500 font-bold pl-2 rounded-l-3xl h-16" : ""} to="createpost">Create Post</NavLink>
+                <NavLink className={({ isActive }) => isActive ? "flex items-center bg-gray-500 font-bold pl-2 rounded-l-3xl h-16" : ""} to="createcategory">Create Category</NavLink>
                 <NavLink className={({ isActive }) => isActive ? "flex items-center bg-gray-500 font-bold pl-2 rounded-l-3xl h-16" : ""} to="comments">Comments</NavLink>
                 <NavLink className={({ isActive }) => isActive ? "flex items-center bg-gray-500 font-bold pl-2 rounded-l-3xl h-16" : ""} to="settings">Settings</NavLink>
             </nav>

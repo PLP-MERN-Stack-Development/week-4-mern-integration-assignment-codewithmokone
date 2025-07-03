@@ -15,8 +15,8 @@ const PostSchema = new mongoose.Schema(
       required: [true, 'Please provide content'],
     },
     featuredImage: {
-      type: String,
-      default: 'default-post.jpg',
+      data: Buffer,
+      contentType: String,
     },
     slug: {
       type: String,

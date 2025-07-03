@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const Header = () => {
+  const { logout } = useContext(AuthContext);
   return (
     <header className="w-full bg-white shadow p-4 flex justify-between items-center">
       <h1 className="text-xl font-semibold">Dashboard</h1>
@@ -11,6 +13,7 @@ const Header = () => {
           alt="Avatar"
           className="w-8 h-8 rounded-full"
         />
+        <button onClick={logout}>Log Out</button>
       </div>
     </header>
   );

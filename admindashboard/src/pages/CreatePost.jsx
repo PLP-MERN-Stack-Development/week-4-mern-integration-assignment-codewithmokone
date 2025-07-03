@@ -7,6 +7,7 @@ const categoryAPI = import.meta.env.VITE_CAT_API;
 
 const CreatePost = () => {
     const { userId } = useContext(AuthContext);
+    const [imageFile, setImageFile] = useState(null);
     
     const [formData, setFormData] = useState({
         title: '',
@@ -22,16 +23,27 @@ const CreatePost = () => {
     const [success, setSuccess] = useState(false);
 
     const handleChange = (e) => {
-        const {name, value, type, checked} = e.target;
+        const {name, value, type, checked, files} = e.target;
 
-        setFormData((prev) => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value,
-        }));
+        // setFormData((prev) => ({
+        //     ...prev,
+        //     [name]: type === 'checkbox' ? checked : value,
+        // }));
+
+        if (name === "featuredImage" && files.length > 0) {
+            setImageFile(files[0]);
+            
+        } else {
+            setFormData((prev) => ({
+                ...prev,
+                [name]: type === "checkbox" ? checked : value,
+            }));
+        }
     }
 
     // Fetching category id
     const fetchCategoryId = async (category) => {  
+            console.log(category);
             
         try {
             const res = await axios.get(`${categoryAPI}${category}`);
@@ -56,19 +68,26 @@ const CreatePost = () => {
         try {
             // Fetch category ID
             const categoryId = await fetchCategoryId(formData.category);
-            
             if (!categoryId) return;
 
+            console.log(imageFile);
+            
             const payload = {
                 ...formData,
                 tags: formData.tags.split(',').map(tag => tag.trim()),
+                featuredImage: imageFile,
                 category: categoryId,
                 author: { _id: userId},
             };
 
             console.log('Payload', payload);
+            
+            const res = await axios.post(postAPI, payload, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
 
-            const res = await axios.post(postAPI, payload);
             if (res.status === 201) {
                 setSuccess(true);
                 setFormData({
@@ -82,6 +101,7 @@ const CreatePost = () => {
                 isPublished: false,
                 });
             }
+            setImageFile(null);
         } catch (error) {
             console.error(error);
             setError(error.response?.data?.message || 'Failed to create a new post.');
@@ -96,7 +116,7 @@ const CreatePost = () => {
                     <h2 className="font-medium">Create A Post</h2>
 
                     {/* Create post form */}
-                    <form className="flex flex-col mt-4" onSubmit={handleSubmit}>
+                    <form className="flex flex-col mt-4" onSubmit={handleSubmit} encType="multipart/form-data">
                         {/* Title input */}
                         <label className="my-2" htmlFor="title">Title</label>
                         <input 
@@ -156,12 +176,11 @@ const CreatePost = () => {
                         onChange={handleChange}
                         />
                         {/* Image input */}
-                        <label className="my-2">Featured Image URL</label>
+                        <label className="my-2">Featured Image</label>
                         <input
                             className="w-96 bg-white"
                             type="file"
                             name="featuredImage"
-                            value={formData.featuredImage}
                             onChange={handleChange}
                         />
                         {/* Publish input */}

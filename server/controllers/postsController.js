@@ -1,4 +1,7 @@
 const Post = require('../models/Post');
+const upload = require('../middleware/uploads');
+const fs = require('fs');
+const path = require('path');
 
 //Get all posts
 exports.getAllPosts = async (req,res) => {
@@ -23,20 +26,29 @@ exports.getPostById = async (req, res) => {
 
 // Create a new post
 exports.createPost = async (req,res) => {
-    const { title, content, slug, category, tags, author } = req.body;
-  console.log(title, content, slug, category, tags, author);
-  
+    const { title, content, slug, category, tags,author, excerpt, isPublished} = req.body;
+    
     try {
+        const imageData = req.file ? fs.readFileSync(path.join(__dirname + '../../uploads/' + req.file.filename)): null;
+        
         const newPost = new Post({
-            title,
-            content,
-            slug, 
-            category,
-            tags,
-            author
+          title,
+          content,
+          slug, 
+          category,
+          tags,
+          author,
+          excerpt,
+          tags,
+          featuredImage: {
+            data: imageData,
+            contentType: 'image/png'
+          },
+          isPublished
         });
-        await newPost.save();
-        res.status(201).json(newPost);
+
+        const post = await Post.create(newPost)
+        res.status(201).json(post);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

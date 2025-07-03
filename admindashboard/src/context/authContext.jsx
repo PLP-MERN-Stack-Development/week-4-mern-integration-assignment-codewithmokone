@@ -1,6 +1,6 @@
 import { children, createContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -9,6 +9,8 @@ export const AuthProvider = ({ children }) => {
     const [userId, setUserId] = useState('')
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [role, setRole] = useState(localStorage.getItem('role'));
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (token, role) {
@@ -34,6 +36,8 @@ export const AuthProvider = ({ children }) => {
         setToken(null);
         setUser(null);
         setRole(null);
+        navigate('/')
+        console.log("logged out");
     };
     
     return (

@@ -6,8 +6,6 @@ export const DataProvider = ({children}) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    console.log('Response data: ', data);
     
     useEffect(() => {
         const fetchData = async () => {
@@ -18,6 +16,8 @@ export const DataProvider = ({children}) => {
                 
                 if(response.ok) {
                     setData(json);
+                    console.log(json);
+                    
                 }
             } catch (error) {
                 setError(error.message || 'Failed to fetch data.')
