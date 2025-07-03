@@ -22,13 +22,9 @@ const CreatePost = () => {
     const [error,setError] = useState(null);
     const [success, setSuccess] = useState(false);
 
+    // Handles value change
     const handleChange = (e) => {
         const {name, value, type, checked, files} = e.target;
-
-        // setFormData((prev) => ({
-        //     ...prev,
-        //     [name]: type === 'checkbox' ? checked : value,
-        // }));
 
         if (name === "featuredImage" && files.length > 0) {
             setImageFile(files[0]);
@@ -69,8 +65,6 @@ const CreatePost = () => {
             // Fetch category ID
             const categoryId = await fetchCategoryId(formData.category);
             if (!categoryId) return;
-
-            console.log(imageFile);
             
             const payload = {
                 ...formData,
@@ -79,8 +73,6 @@ const CreatePost = () => {
                 category: categoryId,
                 author: { _id: userId},
             };
-
-            console.log('Payload', payload);
             
             const res = await axios.post(postAPI, payload, {
                 headers: {

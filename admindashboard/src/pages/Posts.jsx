@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useEffect } from "react";
 
 const categories = [
@@ -12,6 +12,10 @@ const categories = [
 
 const Posts = () => {
     const {data, loading, deleteItem,error} = useContext(DataContext);
+    const navigate = useNavigate();
+
+    console.log(data);
+    
 
     const truncateText = (text, maxLength) => {
         if (!text) return ''; // Guard clause for null/undefined
@@ -38,8 +42,19 @@ const Posts = () => {
                     <>
                         {data && data.map((post) => (
                                 <div key={post._id} className="w-full h-44 bg-white rounded md:flex flex-col p-4 ">
-                                    <Link className="flex"  to={`viewpost/${post._id}`}>
-                                    <img className="w-[30%] bg-amber-400" src={`data:${post.featuredImage};base64,${post.featuredImage}`} alt="#" />
+                                    <Link className="flex h-[95%]"  to={`viewpost/${post._id}`}>
+                                    {/* <img className="w-[30%] bg-amber-400" src={`data:${post.featuredImage.type};base64,${post.featuredImage.data}`} alt="#" /> */}
+                                    {post.featuredImage?.data ? (
+                                        <img
+                                            className="w-[30%] bg-amber-400"
+                                            src={`data:${post.featuredImage.type};base64,${post.featuredImage.data}`}
+                                            alt={post.title || "Post image"}
+                                        />
+                                        ) : (
+                                        <div className="w-[30%] bg-gray-200 flex items-center justify-center text-sm text-gray-600">
+                                            No image
+                                        </div>
+                                    )}
                                     {/* <img src={post.featuredImage} alt="" /> */}
                                     <div className="w-[70%] ml-4 flex flex-col justify-center ">
                                         <h4 className="font-medium">{post.title}</h4>
@@ -47,8 +62,8 @@ const Posts = () => {
                                     </div>
                                     </Link>
                                     <div className="flex justify-end gap-1.5 mt-2.5">
-                                        <button>View</button>
-                                        <button >Edit</button>
+                                        <button onClick={() => navigate(`viewpost/${post._id}`)}>View</button>
+                                        <button onClick={() => navigate(`editpost/${post._id}`)}>Edit</button>
                                         <button className="text-red-600" onClick={() => handleDelete(post)} >Delete</button>
                                     </div>
                                 </div>

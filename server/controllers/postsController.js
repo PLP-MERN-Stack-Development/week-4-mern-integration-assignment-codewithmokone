@@ -7,7 +7,20 @@ const path = require('path');
 exports.getAllPosts = async (req,res) => {
     try {
         const posts = await Post.find().sort({ createdAt: -1 });
-        res.status(200).json(posts);
+
+        const formattedPosts = posts.map(post => {
+            const postObj = post.toObject();
+
+            if (postObj.featuredImage?.data) {
+                postObj.featuredImage = {
+                    type: postObj.featuredImage.contentType,
+                    data: postObj.featuredImage.data.toString('base64')
+                };
+            }
+
+            return postObj;
+        });
+        res.status(200).json(formattedPosts);
     } catch (error) {
         res.status(500).json({message: error.message});
     }
@@ -56,10 +69,14 @@ exports.createPost = async (req,res) => {
 
 // Update a post
 exports.updatePost = async (req, res) => {
+  console.log(req.body);
+  
   try {
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      {
+        featuredImage: req.file?.filename,
+      },
       { new: true, runValidators: true }
     );
     if (!updatedPost) return res.status(404).json({ message: 'Post not found' });

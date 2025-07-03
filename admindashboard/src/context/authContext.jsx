@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
     const [role, setRole] = useState(localStorage.getItem('role'));
 
     const navigate = useNavigate();
-
+    
     useEffect(() => {
         if (token, role) {
         axios.defaults.headers['Authorization'] = `Bearer ${token}, ${role}`;
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         setUserId(data.user._id)
         setRole(data.user.role);
     };
-
+    
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('role');

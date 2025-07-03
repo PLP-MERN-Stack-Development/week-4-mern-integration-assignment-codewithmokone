@@ -49,13 +49,16 @@ export const DataProvider = ({children}) => {
 
     // UPDATE
     const updateItem = async (id, updatedItem) => {
+        console.log(req.params.formData);
+        
         try {
-            const response = await fetch(`${API_URL}/${id}`, {
+            const response = await fetch(`http://localhost:4000/api/posts/${id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedItem),
+                // headers: { 'Content-Type': 'multipart/form-data' },
+                body: formData,
             });
             const updated = await response.json();
+
             if (response.ok) {
                 setData(prevData =>
                     prevData.map(item => (item._id === id ? updated : item))
@@ -89,7 +92,7 @@ export const DataProvider = ({children}) => {
     };
 
     return (
-        <DataContext.Provider value={{data, loading, deleteItem,error}}>
+        <DataContext.Provider value={{data, loading, deleteItem, updateItem, error}}>
             {children}
         </DataContext.Provider>
     )
