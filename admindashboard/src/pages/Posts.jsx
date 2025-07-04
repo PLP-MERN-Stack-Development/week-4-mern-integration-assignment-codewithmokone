@@ -11,11 +11,8 @@ const categories = [
 ]
 
 const Posts = () => {
-    const {data, loading, deleteItem,error} = useContext(DataContext);
+    const { data, loading, deleteItem, error } = useContext(DataContext);
     const navigate = useNavigate();
-
-    console.log(data);
-    
 
     const truncateText = (text, maxLength) => {
         if (!text) return ''; // Guard clause for null/undefined
@@ -23,43 +20,37 @@ const Posts = () => {
     }
 
     const handleDelete = (post) => {
-        // if (window.confirm("Are you sure you want to delete this post?")) {
-        //     deleteItem(post._id);
-        // }
         deleteItem(post._id);
-
     }
-    
+
     return (
-        <main className="w-full h-dvh flex justify-center bg-gray-300">
-            <div className="w-4/5">
-                <div className="grid grid-cols-3 mt-6 sm:gap-8 md:grid-cols-1 md:gap-8 lg:grid-cols-3 lg:gap-0">
-                {loading ? (
-                    <div className="flex items-center justify-center">
-                        Loading......
-                    </div>
-                ) : (
-                    <>
-                        {data && data.map((post) => (
-                                <div key={post._id} className="w-full h-44 bg-white rounded md:flex flex-col p-4 ">
-                                    <Link className="flex h-[95%]"  to={`viewpost/${post._id}`}>
-                                    {/* <img className="w-[30%] bg-amber-400" src={`data:${post.featuredImage.type};base64,${post.featuredImage.data}`} alt="#" /> */}
-                                    {post.featuredImage?.data ? (
-                                        <img
-                                            className="w-[30%] bg-amber-400"
-                                            src={`data:${post.featuredImage.type};base64,${post.featuredImage.data}`}
-                                            alt={post.title || "Post image"}
-                                        />
+        <main className="w-full h-full flex flex-row justify-center bg-gray-300">
+            <div className="w-full h-screen flex justify-center">
+                <div className="h-max grid mt-6 sm:gap-8 md:grid-cols-1 md:gap-4 lg:grid-cols-3 lg:gap-4">
+                    {loading ? (
+                        <div className="flex items-center justify-center">
+                            Loading......
+                        </div>
+                    ) : (
+                        <>
+                            {data && data.map((post) => (
+                                <div key={post._id} className="w-full lg:w-[480px] h-44 bg-white rounded md:flex md:h-50 flex-col p-4 hover:shadow-2xl mb-6">
+                                    <Link className="flex h-[95%]" to={`viewpost/${post._id}`}>
+                                        {post.featuredImage?.data ? (
+                                            <img
+                                                className="w-[30%] bg-amber-400"
+                                                src={`data:${post.featuredImage.type};base64,${post.featuredImage.data}`}
+                                                alt={post.title || "Post image"}
+                                            />
                                         ) : (
-                                        <div className="w-[30%] bg-gray-200 flex items-center justify-center text-sm text-gray-600">
-                                            No image
+                                            <div className="w-[30%] bg-gray-200 flex items-center justify-center text-sm text-gray-600">
+                                                No image
+                                            </div>
+                                        )}
+                                        <div className="w-[70%] ml-4 flex flex-col justify-center ">
+                                            <h4 className="font-medium">{post.title}</h4>
+                                            <p className="mt-2.5">{truncateText(post.content, 100)}</p>
                                         </div>
-                                    )}
-                                    {/* <img src={post.featuredImage} alt="" /> */}
-                                    <div className="w-[70%] ml-4 flex flex-col justify-center ">
-                                        <h4 className="font-medium">{post.title}</h4>
-                                        <p className="mt-2.5">{truncateText(post.content, 100)}</p>
-                                    </div>
                                     </Link>
                                     <div className="flex justify-end gap-1.5 mt-2.5">
                                         <button onClick={() => navigate(`viewpost/${post._id}`)}>View</button>
@@ -67,10 +58,9 @@ const Posts = () => {
                                         <button className="text-red-600" onClick={() => handleDelete(post)} >Delete</button>
                                     </div>
                                 </div>
-                            
-                        ))}
-                    </>
-                )}
+                            ))}
+                        </>
+                    )}
                 </div>
             </div>
         </main>

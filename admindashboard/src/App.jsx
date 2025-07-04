@@ -15,10 +15,10 @@ function App() {
     <Routes>
       {/* Public Routes */}
       <Route path='/' element={<Login />} />
-
+      
       {/* Protected routes inside Layout */}
       <Route path='/' element={<Layout />}>
-        <Route path='dashboard' element={<Dashboard />} />
+        {/* <Route path='dashboard' element={<Dashboard />} /> */}
         <Route path="posts" element={<Posts />} />
         <Route path='posts/viewpost/:id' element={<ViewPost />} />
         <Route path='createpost' element={<CreatePost />} />

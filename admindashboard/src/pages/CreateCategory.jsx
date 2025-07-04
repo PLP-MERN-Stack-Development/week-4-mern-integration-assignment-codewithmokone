@@ -47,11 +47,11 @@ const CreateCategory = () => {
     }
 
     return (
-        <main className="w-full h-screen flex justify-center bg-gray-300">
-            <div className="w-8/12 h-full flex items-center justify-center sm:w-11/12 mt-10 ">
-                <div className="w-full flex flex-col items-center justify-center">
+        <main className="w-full h-screen flex justify-center bg-gray-300 ">
+            <div className="w-8/12 h-full flex justify-center lg:w-screen">
+                <div className="w-full flex flex-col items-center mt-20">
                     {/* Main heading */}
-                    <h2 className="font-medium">Create A Post</h2>
+                    <h2 className="font-medium">Create A Category</h2>
                     
                     {/* Create post form */}
                     <form className="flex flex-col mt-4" onSubmit={handleSubmit}>

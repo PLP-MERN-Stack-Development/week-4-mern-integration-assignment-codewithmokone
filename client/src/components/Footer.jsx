@@ -1,8 +1,8 @@
 const Footer = () => {
     return (
-        <footer className="w-full h-30 flex justify-center items-center bg-blue-300 mt-10">
+        <footer className="w-full h-16 flex justify-center items-center bg-gray-400 mt-10">
             <div>
-                <h4>Footer</h4>
+                <p className="text-white">&copy; {new Date().getFullYear()} Blog. All rights reserved.</p>
             </div>
         </footer>
     )

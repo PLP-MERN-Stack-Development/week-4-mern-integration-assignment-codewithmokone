@@ -101,9 +101,9 @@ const CreatePost = () => {
     }
 
     return (
-        <div className="w-full h-full flex justify-center bg-gray-300">
-            <div className="w-8/12 h-full sm:w-11/12 mt-10 ">
-                <div className="w-full flex flex-col items-center justify-center">
+        <div className="w-full h-screen flex justify-center bg-gray-300">
+            <div className="w-9/12 sm:w-8/12 h-full lg:w-screen" >
+                <div className="w-full flex flex-col items-center justify-center mt-8">
                     {/* Main heading */}
                     <h2 className="font-medium">Create A Post</h2>
 

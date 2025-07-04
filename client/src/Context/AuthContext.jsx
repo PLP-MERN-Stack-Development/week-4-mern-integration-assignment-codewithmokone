@@ -1,43 +1,40 @@
 import { children, createContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [userId, setUserId] = useState('')
+    const [userId, setUserId] = useState(localStorage.getItem('userId'))
     const [token, setToken] = useState(localStorage.getItem('token'));
-    const [role, setRole] = useState(localStorage.getItem('role'));
 
     useEffect(() => {
-        if (token, role) {
-        axios.defaults.headers['Authorization'] = `Bearer ${token}, ${role}`;
+        if (token, userId) {
+        axios.defaults.headers['Authorization'] = `Bearer ${token}, ${userId}`;
         axios.get('http://localhost:4000/api/auth/profile')
             .then(response => setUser(response.data.user))
             .catch(err => console.log(err));
         }
-    }, [token, role]);
+    }, [token, userId]);
 
     const login = (data) => {
         localStorage.setItem('token', data.token);
-        localStorage.setItem('role', data.user.role);
+        localStorage.setItem('userId', data.user._id);
         setToken(data.token);
         setUser(data.user);
         setUserId(data.user._id)
-        setRole(data.user.role);
     };
 
     const logout = () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('role');
+        localStorage.removeItem('userId');
         setToken(null);
         setUser(null);
-        setRole(null);
+        setUserId(null);
     };
     
     return (
-        <AuthContext.Provider value={{ user, userId, token, role, login, logout }}>
+        <AuthContext.Provider value={{ user, userId, token, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

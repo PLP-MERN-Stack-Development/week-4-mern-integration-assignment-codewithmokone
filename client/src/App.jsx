@@ -23,6 +23,7 @@ function App() {
             <Route path='blogs/viewpost/:id' element={<ViewPost />} />
             <Route path='register' element={<Register />} />
             <Route path='login' element={<Login />} />
+            <Route path='viewpost/:id' element={<ViewPost />} />
             
             {/* Protected routes */}
             <Route element={<PrivateRoute />}>

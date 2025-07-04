@@ -4,8 +4,9 @@ import AuthContext from "../context/AuthContext";
 const Header = () => {
   const { logout } = useContext(AuthContext);
   return (
-    <header className="w-full bg-white shadow p-4 flex justify-between items-center">
-      <h1 className="text-xl font-semibold">Dashboard</h1>
+    <header className="w-screen bg-white shadow p-4 flex justify-between items-center">
+      {/* <h1 className="text-xl font-semibold">Dashboard</h1> */}
+      <div></div>
       <div className="flex items-center space-x-4">
         <span className="text-gray-600">Admin</span>
         <img

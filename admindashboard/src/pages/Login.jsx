@@ -18,7 +18,7 @@ const Login = () =>  {
             
         const res = await axios.post('http://localhost:4000/api/auth/login', formData);
         login(res.data);
-        navigate('dashboard');
+        navigate('posts');
         } catch (error) {
         console.log(error.response.data.message);
         setError(error.response.data.message)

@@ -2,6 +2,8 @@ const Post = require('../models/Post');
 const upload = require('../middleware/uploads');
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
+const { log } = require('console');
 
 //Get all posts
 exports.getAllPosts = async (req,res) => {
@@ -96,6 +98,37 @@ exports.deletePost = async (req, res) => {
     res.status(200).json({ message: 'Post deleted successfully' });
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+// POST /api/posts/:postId/comments
+exports.addComment = async (req, res) => {
+  const { id } = req.params;
+
+  const { userId, content } = req.body;
+
+  console.log("User Id:", userId);
+  console.log("Content:", content);
+  console.log("Post Id:", id);
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'Invalid post ID' });
+  }
+
+  if (!userId || !content) {
+    return res.status(400).json({ error: 'User ID and comment content are required' });
+  }
+
+  try {
+    const post = await Post.findById(id);
+    if (!post) return res.status(404).json({ error: 'Post not found' });
+
+    await post.addComment(userId, content);
+
+    res.status(200).json({ message: 'Comment added successfully', comments: post.comments });
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
