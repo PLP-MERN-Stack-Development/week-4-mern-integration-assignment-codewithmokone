@@ -9,6 +9,8 @@ import { AuthProvider } from './Context/AuthContext'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import PrivateRoute from './components/ProtectedRoute'
+import About from './pages/About'
+import ContactUs from './pages/ContactUs'
 
 function App() {
 
@@ -24,6 +26,8 @@ function App() {
             <Route path='register' element={<Register />} />
             <Route path='login' element={<Login />} />
             <Route path='viewpost/:id' element={<ViewPost />} />
+            <Route path='about' element={<About />} />
+            <Route path='contactus' element={<ContactUs />} />
             
             {/* Protected routes */}
             <Route element={<PrivateRoute />}>

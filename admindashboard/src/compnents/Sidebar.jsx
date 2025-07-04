@@ -9,8 +9,6 @@ const Sidebar = () => {
                 <NavLink className={({ isActive }) => isActive ? "w-[102%] flex items-center bg-gray-300 font-bold text-white pl-6 rounded-l-[10px] h-16" : ""} to="posts">Posts</NavLink>
                 <NavLink className={({ isActive }) => isActive ? "w-[102%] flex items-center bg-gray-300 font-bold pl-6 rounded-l-[10px] h-16" : ""} to="createpost">Create Post</NavLink>
                 <NavLink className={({ isActive }) => isActive ? "w-[102%] flex items-center bg-gray-300 font-bold pl-6 rounded-l-[10px] h-16" : ""} to="createcategory">Create Category</NavLink>
-                {/* <NavLink className={({ isActive }) => isActive ? "flex items-center bg-gray-500 font-bold pl-2 rounded-l-[10px] h-16" : ""} to="comments">Comments</NavLink> */}
-                {/* <NavLink className={({ isActive }) => isActive ? "flex items-center bg-gray-500 font-bold pl-2 rounded-l-[10px] h-16" : ""} to="settings">Settings</NavLink> */}
             </nav>
         </aside>
     )

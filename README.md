@@ -1,21 +1,56 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19848371&assignment_repo_type=AssignmentRepo)
-# MERN Stack Integration Assignment
+# 📝 MERN Blog Website
 
-This assignment focuses on building a full-stack MERN (MongoDB, Express.js, React.js, Node.js) application that demonstrates seamless integration between front-end and back-end components.
+A full-stack blog application built with the **MERN stack (MongoDB, Express.js, React, Node.js)** and styled using **Tailwind CSS**. The app supports user authentication, blog post creation, editing, image uploads, and more.
 
-## Assignment Overview
+---
 
-You will build a blog application with the following features:
-1. RESTful API with Express.js and MongoDB
-2. React front-end with component architecture
-3. Full CRUD functionality for blog posts
-4. User authentication and authorization
-5. Advanced features like image uploads and comments
+## Features
+
+- User registration and login with hashed passwords (`bcrypt`)
+- JWT-based authentication (`jsonwebtoken`)
+- Persistent storage with MongoDB (`mongoose`)
+- File/image uploads for blog posts (`multer`)
+- Environment variables managed via `.env` (`dotenv`)
+- CORS-enabled backend for frontend integration (`cors`)
+- Hot-reloading during development (`nodemon`)
+- SPA navigation using React Router (`react-router-dom`)
+- Fully responsive UI with **Tailwind CSS**
+
+---
+
+## Tech Stack
+
+### Frontend
+- React
+- Tailwind CSS
+- React Router DOM
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB (via Mongoose)
+- JWT Authentication
+- Multer for image uploads
+- Bcrypt for password hashing
+- Dotenv for environment configuration
+- CORS for cross-origin access
+
+---
 
 ## Project Structure
 
 ```
 mern-blog/
+├──  admin/                 # React front-end
+│   ├── public/             # Static files
+│   ├── src/                # React source code
+│   │   ├── components/     # Reusable components
+│   │   ├── pages/          # Page components
+│   │   ├── hooks/          # Custom React hooks
+│   │   ├── services/       # API services
+│   │   ├── context/        # React context providers
+│   │   └── App.jsx         # Main application component
+│   └── package.json 
 ├── client/                 # React front-end
 │   ├── public/             # Static files
 │   ├── src/                # React source code
@@ -40,40 +75,77 @@ mern-blog/
 
 ## Getting Started
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Follow the setup instructions in the `Week4-Assignment.md` file
-4. Complete the tasks outlined in the assignment
+---
 
-## Files Included
+## 🔧 Installation & Setup
 
-- `Week4-Assignment.md`: Detailed assignment instructions
-- Starter code for both client and server:
-  - Basic project structure
-  - Configuration files
-  - Sample models and components
+### Prerequisites
+- Node.js & npm
+- MongoDB (local or cloud)
 
-## Requirements
+### Backend Setup
 
-- Node.js (v18 or higher)
-- MongoDB (local installation or Atlas account)
-- npm or yarn
-- Git
+```bash
+cd server
+npm install
 
-## Submission
+```
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+### Create a .env file in the server/ directory:
+- PORT=5000
+- MONGO_URI=your_mongodb_connection_string
+- JWT_SECRET=your_jwt_secret
 
-1. Complete both the client and server portions of the application
-2. Implement all required API endpoints
-3. Create the necessary React components and hooks
-4. Document your API and setup process in the README.md
-5. Include screenshots of your working application
+### Start the backend server:
+- npm start
 
-## Resources
+### Frontend Setup
+- cd client
+- npm install
 
-- [MongoDB Documentation](https://docs.mongodb.com/)
-- [Express.js Documentation](https://expressjs.com/)
-- [React Documentation](https://react.dev/)
-- [Node.js Documentation](https://nodejs.org/en/docs/)
-- [Mongoose Documentation](https://mongoosejs.com/docs/) 
+### Start the React development server:
+- npm run dev
+
+
+### API Routes
+#### Auth
+- POST /api/auth/register
+
+- POST /api/auth/login
+
+#### Blog Posts
+- GET /api/posts
+
+- POST /api/posts (protected)
+
+- PUT /api/posts/:id (protected)
+
+- DELETE /api/posts/:id (protected)
+
+#### Blog Posts
+- GET /api/category
+
+- POST /api/category (protected)
+
+
+### Image Upload
+- Images for blog posts are handled using multer and stored in the uploads/ folder on the backend.
+
+### Scripts
+- Backend (/server)
+- npm start — start backend with nodemon
+
+### Frontend (/client)
+- npm run dev — start frontend with Vite
+
+### License
+- This project is licensed under the MIT License.
+
+### Screenshorts
+#### Admin:
+
+![alt text](<Screenshot 2025-07-04 170142.png>)
+
+#### Client:
+
+![alt text](<Screenshot 2025-07-04 165925.png>)
